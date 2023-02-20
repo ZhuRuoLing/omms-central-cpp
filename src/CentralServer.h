@@ -9,16 +9,26 @@
 #include "base/Object.h"
 #include "utils/PropertiesSet.h"
 
-class CentralServer: public Object{
+class CentralServer : public Object {
 private:
-
+    bool loadPlugin = true;
+    bool test = false;
+    bool generateExample = false;
+    bool useFileLock = true;
+    bool experimental = false;
 public:
     explicit CentralServer();
 
     ~CentralServer() override;
 
-    void setArguments(PropertiesSet propertySet);
-    int main();
+    [[nodiscard]] int main() const;
+
+    void setArguments(PropertiesSet &propertySet);
+private:
+    [[nodiscard]] int executeTest() const;
+    [[nodiscard]] int acquireFileLock() const;
+    [[nodiscard]] int releaseFileLock() const;
+
 };
 
 

@@ -7,13 +7,15 @@
 
 #include "format"
 #include "string"
+#include "../logger/Logger.h"
 
 //base class of all central server class
 class Object {
 protected:
     std::string name;
+    Logger logger;
 public:
-    explicit Object(std::string name) : name(std::move(name)) {}
+    explicit Object(std::string name);
 
     virtual ~Object() = default;
 
@@ -23,6 +25,12 @@ public:
     }
 
     virtual bool equals() { return true; }
+
+    void logError(const std::string &s) const;
+
+    void logInfo(const std::string &s) const;
+
+    void logDebug(const std::string &s) const;
 };
 
 
