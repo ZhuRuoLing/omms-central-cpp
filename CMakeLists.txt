@@ -4,8 +4,10 @@ project(omms_central_cpp)
 set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(libs/spdlog)
+add_subdirectory(libs/cpptoml)
 
-add_executable(omms_central_cpp main.cpp
+add_executable(omms_central_cpp
+        main.cpp
         src/utils/GlobalInclude.h
         src/CentralServer.cpp
         src/CentralServer.h
@@ -19,5 +21,9 @@ add_executable(omms_central_cpp main.cpp
         src/base/Object.cpp
         src/base/Object.h
         src/logger/Logger.cpp
-        src/logger/Logger.h src/command/CommandDispatcher.hpp src/console/ConsoleThread.cpp src/console/ConsoleThread.h src/base/Thread.hpp)
-target_link_libraries(omms_central_cpp spdlog::spdlog)
+        src/logger/Logger.h
+        src/command/CommandDispatcher.hpp
+        src/console/ConsoleThread.cpp
+        src/console/ConsoleThread.h
+        src/base/Thread.hpp)
+target_link_libraries(omms_central_cpp spdlog::spdlog cpptoml)

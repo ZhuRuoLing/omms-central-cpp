@@ -6,7 +6,14 @@
 #define OMMS_CENTRAL_CPP_CONSOLETHREAD_H
 
 
-class ConsoleThread {
+#include "../base/Thread.hpp"
+
+class ConsoleThread : public Thread{
+public:
+    explicit ConsoleThread();
+    ~ConsoleThread() override;
+private:
+    void run() override;
 
 };
 

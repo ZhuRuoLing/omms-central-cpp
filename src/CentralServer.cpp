@@ -4,6 +4,7 @@
 
 #include "CentralServer.h"
 
+
 CentralServer::CentralServer() : Object("CentralServer") {
 
 }
@@ -16,35 +17,49 @@ void CentralServer::setArguments(PropertiesSet& propertySet) {
     this->generateExample = propertySet.getBool("generateExample");
 }
 
-int CentralServer::main() const {
+int CentralServer::main() {
     logInfo("Hello World!");
     if (this->test){
         return executeTest();
     }
-    if (!this->useFileLock){
-        this->logInfo("Acquiring Lock.");
-        if (this->acquireFileLock()){
-            this->logError("Cannot acquire Lock, OMMS Central will exit.");
-            this->logInfo("hint: Are you make sure there is not any instance of OMMS Central running in current working directory?");
-        }
+    if (createFilesAndFolders()){
+        this->logWarn("Seems that config of OMMS Central is not complete.");
+        this->logInfo("You may complete those configs to continue.");
+        return 1;
     }
-    if (releaseFileLock()){
-        this->logError("Cannot release Lock.");
-    }
+
+    consoleThread.start();
+
+    consoleThread.join();
     logInfo("Bye.");
     return 0;
 }
 
+int CentralServer::createFilesAndFolders() const {
+    int count = 0;
+    auto files = {"config.toml", "permission.toml"};
+    for (const auto &item: files) {
+        if (!fileExists(item)){
+            logger.info(std::format("Creating file {}", item));
+            createFile(item);
+            count ++;
+        }
+    }
+    auto folders = {"announcement", "whitelist", "logs", "plugins", "controllers"};
+    for (const auto &item: folders) {
+        count += std::filesystem::create_directories(item);
+    }
+    return count;
+}
+
+
 int CentralServer::executeTest() const {
-    return 0;
-}
-
-int CentralServer::acquireFileLock() const {
-    return 0;
-}
-
-int CentralServer::releaseFileLock() const {
+    logInfo("LogInfo");
+    logWarn("LogWarn");
+    logError("LogError");
+    createFilesAndFolders();
     return 0;
 }
 
 CentralServer::~CentralServer() = default;
+

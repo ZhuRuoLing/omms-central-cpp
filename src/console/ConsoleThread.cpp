@@ -3,3 +3,11 @@
 //
 
 #include "ConsoleThread.h"
+
+ConsoleThread::ConsoleThread() : Thread("ConsoleThread") {}
+
+void ConsoleThread::run() {
+    logInfo(std::format("Using ConsoleThread instance: {}", this->toString()));
+}
+
+ConsoleThread::~ConsoleThread() = default;

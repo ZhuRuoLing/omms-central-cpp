@@ -14,6 +14,10 @@ void Object::logInfo(const std::string& s) const {
     logger.info(s);
 }
 
+void Object::logWarn(const std::string& s) const {
+    logger.warn(s);
+}
+
 void Object::logDebug(const std::string& s) const {
     logger.debug(s);
 }

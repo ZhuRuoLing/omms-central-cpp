@@ -10,7 +10,7 @@
 #include "../logger/Logger.h"
 
 //base class of all central server class
-class Object {
+class Object{
 protected:
     std::string name;
     Logger logger;
@@ -31,6 +31,8 @@ public:
     void logInfo(const std::string &s) const;
 
     void logDebug(const std::string &s) const;
+
+    void logWarn(const std::string &s) const;
 };
 
 

@@ -9,26 +9,30 @@
 
 class Thread : public Object {
 private:
-    std::string name;
+    const std::string name;
     std::thread thread;
+    virtual void run(){};
 public:
-    Thread(const std::string &n) : name(n), Object(n) {}
+    explicit Thread(const std::string &n) : name(n), Object(n) {}
 
-    Thread(Thread const &thread1) = delete;
+    Thread(const Thread &thread1) = delete;
 
     ~Thread() override = default;
-
-    virtual void run() const {}
-
+public:
     void start() {
         thread = std::thread([this] {
             this->run();
         });
-        thread.detach();
+        //thread.detach();
     }
 
     void join() {
-        return thread.join();
+        logDebug(std::to_string(thread.joinable()));
+        thread.join();
+    }
+
+    void interrupt(){
+
     }
 
 };

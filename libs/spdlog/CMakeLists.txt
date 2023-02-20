@@ -259,12 +259,12 @@ endif()
 # Build binaries
 # ---------------------------------------------------------------------------------------
 if(SPDLOG_BUILD_EXAMPLE OR SPDLOG_BUILD_EXAMPLE_HO OR SPDLOG_BUILD_ALL)
-    message(STATUS "Generating example(s)")
-    add_subdirectory(example)
-    spdlog_enable_warnings(example)
-    if(SPDLOG_BUILD_EXAMPLE_HO)
-        spdlog_enable_warnings(example_header_only)
-    endif()
+#    message(STATUS "Generating example(s)")
+#    add_subdirectory(example)
+#    spdlog_enable_warnings(example)
+#    if(SPDLOG_BUILD_EXAMPLE_HO)
+#        spdlog_enable_warnings(example_header_only)
+#    endif()
 endif()
 
 if(SPDLOG_BUILD_TESTS OR SPDLOG_BUILD_TESTS_HO OR SPDLOG_BUILD_ALL)

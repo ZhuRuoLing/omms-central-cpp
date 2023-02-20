@@ -8,6 +8,8 @@
 
 #include "base/Object.h"
 #include "utils/PropertiesSet.h"
+#include "console/ConsoleThread.h"
+#include "utils/GlobalInclude.h"
 
 class CentralServer : public Object {
 private:
@@ -16,19 +18,18 @@ private:
     bool generateExample = false;
     bool useFileLock = true;
     bool experimental = false;
+    ConsoleThread consoleThread = ConsoleThread();
 public:
     explicit CentralServer();
 
     ~CentralServer() override;
 
-    [[nodiscard]] int main() const;
+    [[nodiscard]] int main();
 
     void setArguments(PropertiesSet &propertySet);
 private:
+    int createFilesAndFolders() const;
     [[nodiscard]] int executeTest() const;
-    [[nodiscard]] int acquireFileLock() const;
-    [[nodiscard]] int releaseFileLock() const;
-
 };
 
 
